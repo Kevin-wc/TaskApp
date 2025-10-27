@@ -1,15 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".TextFragment">
+    android:layout_height="wrap_content"
+    android:padding="16dp">
 
-
-    <Button
-        android:id="@+id/enterB"
+    <TextView
+        android:id="@+id/textViewTask"
+        android:text="Enter Task"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:insetLeft="100dp"
-        android:text="@string/enter" />
-</FrameLayout>
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <EditText
+        android:id="@+id/editTextTask"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="Input a Task"
+        android:inputType="text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@id/textViewTask"
+        app:layout_constraintTop_toTopOf="@id/textViewTask" />
+
+    <TextView
+        android:id="@+id/textViewWho"
+        android:text="Who did it?"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/editTextTask"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="16dp" />
+
+    <EditText
+        android:id="@+id/editTextWho"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="Name"
+        app:layout_constraintTop_toBottomOf="@id/editTextTask"
+        app:layout_constraintStart_toEndOf="@id/textViewWho"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:inputType="textPersonName" />
+
+    <Button
+        android:id="@+id/buttonAdd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Add Task"
+        app:layout_constraintTop_toBottomOf="@id/editTextWho"
+        app:layout_constraintStart_toEndOf="@id/textViewWho"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="16dp"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

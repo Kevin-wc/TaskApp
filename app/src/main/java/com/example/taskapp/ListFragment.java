@@ -14,16 +14,12 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
-
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link ListFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class ListFragment extends Fragment {
-
-    ListView listView;
+    private ListView listView;
+    private ArrayAdapter<String> adapter;
+    private ArrayList<String> tasks;
     TextViewModel textModel;
     public ListFragment() {
         // Required empty public constructor
@@ -41,35 +37,23 @@ public class ListFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_list, container, false);
         listView = view.findViewById(R.id.elements);
+
+        tasks = new ArrayList<>();
+        adapter = new ArrayAdapter<>(requireContext(),
+                android.R.layout.simple_list_item_1, tasks);
+        listView.setAdapter(adapter);
+
+        textModel = new ViewModelProvider(requireActivity()).get(TextViewModel.class);
+
+        // Observe the task list — this updates the UI automatically
+        textModel.getTasks().observe(getViewLifecycleOwner(), updatedTasks -> {
+            tasks.clear();
+            tasks.addAll(updatedTasks);
+            adapter.notifyDataSetChanged();
+        });
+
         return view;
     }
-
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState){
-        super.onViewCreated(view, savedInstanceState);
-        textModel = new ViewModelProvider(getActivity()).get(TextViewModel.class);
-        textModel.getTasks().observe(getViewLifecycleOwner(), new Observer<LinkedList<String>>() {
-            @Override
-            public void onChanged(LinkedList<String> strings) {
-                ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_1,
-                        textModel.getTasks());
-                listView.setAdapter(adapter);
-            }
-        });
-    }
-};
-
-
-
-
-
-
-
-
-
-
-
 }

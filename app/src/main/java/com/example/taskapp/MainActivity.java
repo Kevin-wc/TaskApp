@@ -1,6 +1,9 @@
 package com.example.taskapp;
 
+import android.content.ContentValues;
+import android.database.Cursor;
 import android.os.Bundle;
+import android.util.Log;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -11,7 +14,13 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.example.taskapp.model.MyTaskContentProvider;
+import com.example.taskapp.model.Task;
+
+import java.util.LinkedList;
+
 public class MainActivity extends AppCompatActivity {
+    LinkedList tasks;
     FragmentManager fg;
     TextViewModel textModel;
 
@@ -32,4 +41,6 @@ public class MainActivity extends AppCompatActivity {
             trans.commit();
         }
     }
+
+
 }
